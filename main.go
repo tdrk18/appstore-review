@@ -5,41 +5,15 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+
+	"./storeReview"
 )
-
-type Author struct {
-	Name string `xml:"name"`
-	URI  string `xml:"uri"`
-}
-
-type Link struct {
-	Rel  string `xml:"rel,attr"`
-	Href string `xml:"href,attr"`
-}
-
-type Comment struct {
-	Type string `xml:"type,attr"`
-	Text string `xml:",chardata"`
-}
-
-type XML struct {
-	Reviews []struct {
-		Id      string    `xml:"id"`
-		Updated string    `xml:"updated"`
-		Title   string    `xml:"title"`
-		Comment []Comment `xml:"content"`
-		Rating  int       `xml:"rating"`
-		Version string    `xml:"version"`
-		Author  Author    `xml:"author"`
-		Link    Link      `xml:"link"`
-	} `xml:"entry"`
-}
 
 func main() {
 	storeURL := "https://itunes.apple.com/jp/rss/customerreviews/id=" + os.Getenv("APPSTORE_ID") + "/xml"
 	data := httpGet(storeURL)
 
-	result := XML{}
+	result := storeReview.XML{}
 	err := xml.Unmarshal([]byte(data), &result)
 	if err != nil {
 		fmt.Printf("error: %v", err)
