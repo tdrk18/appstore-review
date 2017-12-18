@@ -26,21 +26,27 @@ func main() {
 		return
 	}
 
+	baseTime := time.Now().Add(-time.Hour * 24)
+
 	webhookUrl := os.Getenv("REVIEW_SLACK_WEBHOOK_URL")
 	for _, review := range result.Reviews {
-		attachment := slack.Attachment{}
-		version := review.Version
-		star := strings.Repeat("⭐", int(review.Rating))
-		title := review.Title
-		comment := review.Comment[0].Text
-		author := review.Author.Name
-
 		updatedAt, err := time.Parse(
 			"2006-01-02T15:04:05-07:00",
 			review.Updated)
 		if err != nil {
 			log.Fatal(err)
 		}
+
+		if updatedAt.Before(baseTime) || int(review.Rating) == 0 {
+			continue
+		}
+
+		attachment := slack.Attachment{}
+		version := review.Version
+		star := strings.Repeat("⭐", int(review.Rating))
+		title := review.Title
+		comment := review.Comment[0].Text
+		author := review.Author.Name
 
 		loc, timeErr := time.LoadLocation(location)
 		if timeErr != nil {
