@@ -4,6 +4,8 @@ language: go
 go:
   - 1.9.2
 
+install: true
+
 script:
   - GOOS=linux GOARCH=amd64 go build -o main_linux main.go
   - GOOS=darwin GOARCH=amd64 go build -o main_darwin main.go
