@@ -1,12 +1,12 @@
 sudo: false
-
 language: go
 go:
-  - 1.9.2
-
+- 1.9.2
 install: true
-
 script:
-  - GOOS=linux GOARCH=amd64 go build -o main_linux main.go
-  - GOOS=darwin GOARCH=amd64 go build -o main_darwin main.go
-  - GOOS=windows GOARCH=amd64 go build -o main_windows main.go
+- GOOS=linux GOARCH=amd64 go build -o main_linux main.go
+- GOOS=darwin GOARCH=amd64 go build -o main_darwin main.go
+- GOOS=windows GOARCH=amd64 go build -o main_windows main.go
+notifications:
+  slack:
+    secure: thoOhDWEpYUkmUHyG/mGNF9mKWDCDm7UaJzNQW9LPfp1JQ0YO1ehgidbjaU/YXSm0Tym9vueN7hc3oJlNEjlXROB8ga5hM+l7O7jyUe/0n2cBNoyo286klBXlbsxKIgEliIpqdkwbFvL/Dsgn0a5YWEijBPStgNOU0wV71o98vbvMiMZiGBnqBUFQ8p7T1vtA5TMbshs760qHoaREbiqKTiqKh6eRp/3WVdLb7gssK1lEzXHZuype2TMyox+0ss5HlZNj/wm+rp8du8iE4PezPfv1elJf4XkgCF0z32U4D3SCzn64qs8reqib6t5ghLLio+wV0QyHsurpzXmi5FUQ0Gp0AhEXdnGKuu2z0GpSX3Ag6lCcLv0Wb10ODfo1i+0ZNuyAriCG5R6AE3Q60+3K3DSc2MvQWtY726v5d9xyPUy46AaWn4Vu0tTWsp0q85iSqIT7vnPaeVscJBiGjHmuWLWSwXAxdGg4HBUv/iuAbfaHtLw7fu1UYG7JLo6Vd3odHES71dgZe5/ZKk8a/XzA72DkasFM5x/Zw1RY9YyYzl5Artbdn+f830MCutq45DM3n5t+15fFmAHvjZvjAXZDX7bod3gsqeTHBuXw9iyO1ZqEWWdOOjdik09hli3Yw8mgMm/Zkj3n41JXQ1zq9s559ctVIHixhw8nmXqvSevYis=
