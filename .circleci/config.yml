@@ -1,0 +1,66 @@
+version: 2
+jobs:
+  checkout_code:
+    docker:
+      - image: circleci/golang:1.9.2
+    working_directory: /go/src/github.com/tdrk18/appstore-review
+    steps:
+      - checkout
+      - save_cache:
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - /go/src/github.com/tdrk18/appstore-review
+
+  build_binaries:
+    docker:
+      - image: circleci/golang:1.9.2
+
+    working_directory: /go/src/github.com/tdrk18/appstore-review
+
+    steps:
+      - restore_cache:
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+
+      - run: mkdir bin
+
+      - run:
+          name: build for Linux
+          environment:
+            GOOS: linux
+            GOARCH: amd64
+          command: |
+              mkdir bin/linux
+              go build -o bin/linux/main main.go
+
+      - run:
+          name: build for macOS
+          environment:
+            GOOS: darwin
+            GOARCH: amd64
+          command: |
+              mkdir bin/darwin
+              go build -o bin/darwin/main main.go
+
+      - run:
+          name: build for windows
+          environment:
+            GOOS: windows
+            GOARCH: amd64
+          command: |
+              mkdir bin/windows
+              go build -o bin/windows/$1.exe main.go
+
+      - store_artifacts:
+          path: bin
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - checkout_code
+      - build_binaries:
+          requires:
+            - checkout_code
+          filters:
+            branches:
+              only: master
