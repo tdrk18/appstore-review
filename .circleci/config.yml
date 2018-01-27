@@ -8,38 +8,37 @@ jobs:
 
     steps:
       - checkout
-      - run:
-        command: mkdir bin
+      - run: mkdir bin
 
       - run:
-        name: build for Linux
-        environment:
-          GOOS: linux
-          GOARCH: amd64
-        command: |
-            mkdir bin/linux
-            go build main.go -o bin/linux/$1
+          name: build for Linux
+          environment:
+            GOOS: linux
+            GOARCH: amd64
+          command: |
+              mkdir bin/linux;
+              go build main.go -o bin/linux/$1
 
       - run:
-        name: build for macOS
-        environment:
-          GOOS: darwin
-          GOARCH: amd64
-        command: |
-            mkdir bin/darwin
-            go build main.go -o bin/darwin/$1
+          name: build for macOS
+          environment:
+            GOOS: darwin
+            GOARCH: amd64
+          command: |
+              mkdir bin/darwin;
+              go build main.go -o bin/darwin/$1
 
       - run:
-        name: build for windows
-        environment:
-          GOOS: windows
-          GOARCH: amd64
-        command: |
-            mkdir bin/windows
-            go build main.go -o bin/windows/$1.exe
+          name: build for windows
+          environment:
+            GOOS: windows
+            GOARCH: amd64
+          command: |
+              mkdir bin/windows;
+              go build main.go -o bin/windows/$1.exe
 
       - store_artifacts:
-        path: bin
+          path: bin
 
 workflows:
   version: 2
