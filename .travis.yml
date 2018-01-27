@@ -1,0 +1,10 @@
+sudo: false
+
+language: go
+go:
+  - 1.9.2
+
+script:
+  - GOOS=linux GOARCH=amd64 go build -o main_linux main.go
+  - GOOS=darwin GOARCH=amd64 go build -o main_darwin main.go
+  - GOOS=windows GOARCH=amd64 go build -o main_windows main.go
