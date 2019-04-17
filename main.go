@@ -26,7 +26,10 @@ func main() {
 		return
 	}
 
-	baseTime := time.Now().Add(-time.Hour * 24)
+	jst, _ := time.LoadLocation("Asia/Tokyo")
+	base := time.Now().In(jst).Add(-time.Hour * 24)
+	year, month, day := base.Date()
+	baseTime := time.Date(year, month, day, 0, 0, 0, 0, base.Location())
 
 	webhookUrl := os.Getenv("REVIEW_SLACK_WEBHOOK_URL")
 	for _, review := range result.Reviews {
@@ -37,7 +40,9 @@ func main() {
 			log.Fatal(err)
 		}
 
-		if updatedAt.Before(baseTime) || int(review.Rating) == 0 {
+		updatedAtInJST := updatedAt.In(jst)
+
+		if updatedAtInJST.Before(baseTime) || int(review.Rating) == 0 {
 			continue
 		}
 
