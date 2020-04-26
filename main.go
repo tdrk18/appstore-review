@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	"./slack"
-	"./storeReview"
+	"github.com/tdrk18/appstore-review/slack"
+	"github.com/tdrk18/appstore-review/storeReview"
 )
 
 const location = "Asia/Tokyo"
