@@ -1,8 +1,8 @@
-version: 2
+version: 2.1
 jobs:
   checkout_code:
     docker:
-      - image: circleci/golang:1.9.2
+      - image: circleci/golang:1.14.2
     working_directory: /go/src/github.com/tdrk18/appstore-review
     steps:
       - checkout
@@ -13,7 +13,7 @@ jobs:
 
   build_binaries:
     docker:
-      - image: circleci/golang:1.9.2
+      - image: circleci/golang:1.14.2
 
     working_directory: /go/src/github.com/tdrk18/appstore-review
 
