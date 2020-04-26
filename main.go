@@ -60,12 +60,12 @@ func main() {
 		}
 		updatedStr := updatedAt.In(loc).Format("2006/01/02 Mon 15:04:05")
 
-		attachment.AddField(slack.Field { Title: star + " " + title, Value: comment })
-		payload := slack.Payload {
-			Text: "App Store Review\n" + "ver: " + version + " [" + updatedStr + "]",
-			Username: author,
-			Channel: os.Getenv("REVIEW_SLACK_CHANNEL"),
-			IconEmoji: os.Getenv("REVIEW_SLACK_ICON"),
+		attachment.AddField(slack.Field{Title: star + " " + title, Value: comment})
+		payload := slack.Payload{
+			Text:        "App Store Review\n" + "ver: " + version + " [" + updatedStr + "]",
+			Username:    author,
+			Channel:     os.Getenv("REVIEW_SLACK_CHANNEL"),
+			IconEmoji:   os.Getenv("REVIEW_SLACK_ICON"),
 			Attachments: []slack.Attachment{attachment},
 		}
 		if len(webhookUrl) > 0 {

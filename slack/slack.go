@@ -2,9 +2,9 @@ package slack
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/http"
-	"encoding/json"
 )
 
 type Field struct {
