@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	"./slack"
-	"./storeReview"
+	"github.com/tdrk18/appstore-review/slack"
+	"github.com/tdrk18/appstore-review/storeReview"
 )
 
 const location = "Asia/Tokyo"
@@ -68,9 +68,13 @@ func main() {
 			IconEmoji: os.Getenv("REVIEW_SLACK_ICON"),
 			Attachments: []slack.Attachment{attachment},
 		}
-		slackErr := slack.Send(webhookUrl, payload)
-		if len(slackErr) > 0 {
-			log.Fatal(slackErr)
+		if len(webhookUrl) > 0 {
+			slackErr := slack.Send(webhookUrl, payload)
+			if len(slackErr) > 0 {
+				log.Fatal(slackErr)
+			}
+		} else {
+			log.Println(payload)
 		}
 	}
 
